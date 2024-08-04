@@ -59,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
             const SizedBox(height: 8,),
             ElevatedButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+                backgroundColor: WidgetStateProperty.all<Color>(Colors.green),
               ),
                 onPressed: () {
                   ScaffoldMessenger.of(context).showSnackBar(
