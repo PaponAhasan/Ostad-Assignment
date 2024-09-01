@@ -22,7 +22,7 @@ class NavMenu extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    'Header Header Header',
+                    'SKILL UP NOW',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 18,
@@ -30,28 +30,29 @@ class NavMenu extends StatelessWidget {
                   ),
                   SizedBox(width: 16),
                   Text(
-                    'Header',
+                    'TAP HERE',
                     style: TextStyle(
                       color: Colors.white,
-                      fontSize: 14,
+                      fontSize: 12,
                     ),
                   ),
                 ],
               ),
             ),
             /* List Items */
+            SizedBox(height: MediaQuery.of(context).size.height * 0.05,),
             const ListTile(
-              leading: Icon(Icons.person),
+              leading: Icon(Icons.movie_filter_outlined),
               title: Text(
-                'Profile',
+                'Episodes',
               ),
             ),
+            SizedBox(height: MediaQuery.of(context).size.height * 0.03,),
             ListTile(
-              leading: const Icon(Icons.person),
+              leading: const Icon(Icons.message),
               title: const Text(
-                'Settings',
+                'About',
               ),
-              tileColor: Colors.grey.shade300,
               onTap: () => Navigator.of(context).pop(),
             ),
           ],
