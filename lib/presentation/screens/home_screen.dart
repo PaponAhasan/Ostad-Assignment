@@ -29,6 +29,9 @@ class HomeScreen extends StatelessWidget {
           alignment: Alignment.centerRight,
           child: Text(
             'HUMMING \nBIRD .',
+            style:  TextStyle(
+              fontSize: 18,
+            ),
           ),
         ),
       ),
