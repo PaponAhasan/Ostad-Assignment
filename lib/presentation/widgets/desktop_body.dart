@@ -53,6 +53,6 @@ class DesktopBody extends StatelessWidget {
           )
         ],
       ),
-    );;
+    );
   }
 }
