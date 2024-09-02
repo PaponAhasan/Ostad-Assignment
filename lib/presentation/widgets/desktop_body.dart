@@ -8,7 +8,7 @@ class DesktopBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(32.0),
+      padding: const EdgeInsets.fromLTRB(32, 70, 32, 32),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         children: [
