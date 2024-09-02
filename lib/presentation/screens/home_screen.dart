@@ -62,7 +62,7 @@ class HomeScreen extends StatelessWidget {
       body: Column(
         children: [
           TopHeader(),
-          Expanded(
+          Flexible(
             child: DesktopBody(),
           ),
         ],

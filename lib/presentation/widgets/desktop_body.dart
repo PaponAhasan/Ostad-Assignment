@@ -10,8 +10,9 @@ class DesktopBody extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(32.0),
       child: Row(
+        mainAxisSize: MainAxisSize.max,
         children: [
-          Expanded(
+          Flexible(
             flex: 50,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,13 +36,14 @@ class DesktopBody extends StatelessWidget {
               ],
             ),
           ),
-          const Expanded(
+          const Flexible(
+            fit:  FlexFit.tight,
             flex: 20,
             child: SizedBox(
               width: 32,
             ),
           ),
-          Expanded(
+          Flexible(
             flex: 30,
             child: ElevatedButton(
               onPressed: () {},
