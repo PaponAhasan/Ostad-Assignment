@@ -80,87 +80,106 @@ class HomeScreen extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-           Row(
-             children: [
-               Image.asset(
-                 'images/ic_shirt.jpg',
-                 fit: BoxFit.cover,
-               ),
-               Column(
-                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                 crossAxisAlignment: CrossAxisAlignment.start,
-                 children: [
-                   Text(
-                     "Pull Over",
-                     style: textStyle(color: Colors.black, size: 18, isBold: true),
-                   ),
-                   Row(
-                     children: [
-                       Text(
-                         "Color: ",
-                         style: textStyle(
-                             color: Colors.grey.shade500, size: 12, isBold: false),
-                       ),
-                       Text(
-                         "Black",
-                         style: textStyle(
-                             color: Colors.black, size: 12, isBold: false),
-                       ),
-                       const SizedBox(width: 12,),
-                       Text(
-                         "Size: ",
-                         style: textStyle(
-                             color: Colors.grey.shade500, size: 12, isBold: false),
-                       ),
-                       Text(
-                         "L",
-                         style: textStyle(
-                             color: Colors.black, size: 12, isBold: false),
-                       ),
-                     ],
-                   ),
-                   Row(
-                     children: [
-                       Material(
-                         elevation: .5, // Set the elevation to add a shadow effect
-                         shape: const CircleBorder(), // Ensure the shape remains circular
-                         color: Colors.transparent, // Set to transparent if you want the circle's background to control the color
-                         child: CircleAvatar(
-                           backgroundColor: Colors.white, // Background color of the circle
-                           child: IconButton(
-                             color: Colors.grey,
-                             onPressed: () {},
-                             icon: const Icon(
-                               Icons.remove,
-                             ),
-                           ),
-                         ),
-                       ),
-                       const Padding(
-                         padding: EdgeInsets.symmetric(horizontal: 12.0),
-                         child: Text('1'),
-                       ),
-                       Material(
-                         elevation: .5, // Set the elevation to add a shadow effect
-                         shape: const CircleBorder(), // Ensure the shape remains circular
-                         color: Colors.transparent, // Set to transparent if you want the circle's background to control the color
-                         child: CircleAvatar(
-                           backgroundColor: Colors.white, // Background color of the circle
-                           child: IconButton(
-                             color: Colors.grey,
-                             onPressed: () {},
-                             icon: const Icon(
-                               Icons.add,
-                             ),
-                           ),
-                         ),
-                       ),
-                     ],
-                   )
-                 ],
-               ),
-             ],
-           ),
+            Row(
+              children: [
+                Image.asset(
+                  'images/ic_shirt.jpg',
+                  fit: BoxFit.cover,
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Pull Over",
+                      style: textStyle(
+                          color: Colors.black, size: 18, isBold: true),
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          "Color: ",
+                          style: textStyle(
+                              color: Colors.grey.shade500,
+                              size: 12,
+                              isBold: false),
+                        ),
+                        Text(
+                          "Black",
+                          style: textStyle(
+                              color: Colors.black, size: 12, isBold: false),
+                        ),
+                        const SizedBox(
+                          width: 12,
+                        ),
+                        Text(
+                          "Size: ",
+                          style: textStyle(
+                              color: Colors.grey.shade500,
+                              size: 12,
+                              isBold: false),
+                        ),
+                        Text(
+                          "L",
+                          style: textStyle(
+                              color: Colors.black, size: 12, isBold: false),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Material(
+                          elevation: .5,
+                          // Set the elevation to add a shadow effect
+                          shape: const CircleBorder(),
+                          // Ensure the shape remains circular
+                          color: Colors.transparent,
+                          // Set to transparent if you want the circle's background to control the color
+                          child: CircleAvatar(
+                            backgroundColor: Colors.white,
+                            // Background color of the circle
+                            child: IconButton(
+                              color: Colors.grey,
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.remove,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                          child: Text(
+                            '1',
+                            style: textStyle(
+                                color: Colors.black, size: 14, isBold: true),
+                          ),
+                        ),
+                        Material(
+                          elevation: .5,
+                          // Set the elevation to add a shadow effect
+                          shape: const CircleBorder(),
+                          // Ensure the shape remains circular
+                          color: Colors.transparent,
+                          // Set to transparent if you want the circle's background to control the color
+                          child: CircleAvatar(
+                            backgroundColor: Colors.white,
+                            // Background color of the circle
+                            child: IconButton(
+                              color: Colors.grey,
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.add,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ],
+            ),
             Padding(
               padding: const EdgeInsets.only(right: 12.0),
               child: Column(
@@ -176,7 +195,8 @@ class HomeScreen extends StatelessWidget {
                   ),
                   Text(
                     "51\$",
-                    style: textStyle(color: Colors.black, size: 16, isBold: true),
+                    style:
+                        textStyle(color: Colors.black, size: 16, isBold: true),
                   ),
                 ],
               ),
@@ -186,26 +206,4 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
-
-// ListTile(
-// title: Text("Title"),
-// subtitle: Text("Sub Title"),
-// trailing: Column(
-// mainAxisSize: MainAxisSize.max,
-// mainAxisAlignment: MainAxisAlignment.spaceBetween,
-// children: [
-// IconButton(
-// onPressed: () {},
-// icon: const Icon(
-// Icons.more_vert,
-// ),
-// ),
-// Text("51\$", style: textStyle(color: Colors.black, size: 16, isBold: true),),
-// ],
-// ),
-// leading: Image.asset(
-// 'images/ic_shirt.jpg',
-// fit: BoxFit.cover,
-// ),
-// ),
 }
