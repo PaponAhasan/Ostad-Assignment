@@ -13,7 +13,7 @@ class BagData {
       required this.price});
 }
 
-List<BagData> bagData = [
+List<BagData> bagDataList = [
   BagData(
     image: "images/ic_shirt.jpg",
     name: "Pullover",
