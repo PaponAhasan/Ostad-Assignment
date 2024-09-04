@@ -2,6 +2,6 @@
 class Assets {
   Assets._();
 
-  static const String imagesFlutterLogo = 'images/flutter_logo.png';
+  static const String imagesShirt02 = 'images/ic_shirt.jpg';
 
 }
