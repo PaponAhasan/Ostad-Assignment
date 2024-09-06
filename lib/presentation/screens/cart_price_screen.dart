@@ -11,10 +11,11 @@ class CartPriceScreen extends StatefulWidget {
 }
 
 class _CartPriceScreenState extends State<CartPriceScreen> {
+
   double _onCardTotalPrice() {
     double totalPrice = 0;
-    for (BagData bagData in bagDataList) {
-      totalPrice += bagData.perTotalPrice;
+    for (CartData bagData in cartDataList) {
+      totalPrice += bagData.perTotalPrice ?? 0.0;
     }
     setState(() {});
     return totalPrice;
@@ -22,7 +23,7 @@ class _CartPriceScreenState extends State<CartPriceScreen> {
 
   @override
   Widget build(BuildContext context) {
-    String totalPrice = _onCardTotalPrice().toString();
+    String totalPrice = _onCardTotalPrice().toStringAsFixed(2);
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 30.0),
@@ -35,7 +36,7 @@ class _CartPriceScreenState extends State<CartPriceScreen> {
                 textStyle(color: Colors.grey.shade500, size: 16, isBold: false),
           ),
           Text(
-            '$totalPrice\$',
+            '${totalPrice.toString()}\$',
             style: textStyle(color: Colors.black, size: 16, isBold: true),
           ),
         ],

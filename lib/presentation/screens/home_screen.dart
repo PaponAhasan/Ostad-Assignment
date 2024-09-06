@@ -15,7 +15,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
 
   void onPriceChange() {
-    print("onPriceChange : ${bagDataList[0].perTotalPrice}");
     setState(() {});
   }
 

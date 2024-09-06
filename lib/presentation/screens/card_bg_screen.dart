@@ -15,22 +15,22 @@ class CardBgScreen extends StatefulWidget {
 class _CardBgScreenState extends State<CardBgScreen> {
 
   void _onTabToProductIncrement(int index) {
-    bagDataList[index].perCount += 1;
+    cartDataList[index].perCount += 1;
     _onAddToPerProductPrice(index);
     setState(() {});
   }
 
   void _onTabToProductDecrement(int index) {
-    if (bagDataList[index].perCount == 0) return;
-    bagDataList[index].perCount -= 1;
+    if (cartDataList[index].perCount == 0) return;
+    cartDataList[index].perCount -= 1;
     _onAddToPerProductPrice(index);
     setState(() {});
   }
 
   void _onAddToPerProductPrice(int index) {
-    int perCount = bagDataList[index].perCount;
-    double perPrice = bagDataList[index].price;
-    bagDataList[index].perTotalPrice = perCount * perPrice;
+    int perCount = cartDataList[index].perCount;
+    double perPrice = cartDataList[index].price;
+    cartDataList[index].perTotalPrice = perCount * perPrice;
     widget.onPriceChange(); // Trigger the callback on price change
     setState(() {});
   }
@@ -57,14 +57,14 @@ class _CardBgScreenState extends State<CardBgScreen> {
             ),
           );
         },
-        itemCount: bagDataList.length,
+        itemCount: cartDataList.length,
       ),
     );
   }
 
   Widget _buildShoppingPrice(int index) {
 
-    BagData bagData = bagDataList[index];
+    CartData bagData = cartDataList[index];
 
     return Column(
       mainAxisSize: MainAxisSize.max,
@@ -91,7 +91,7 @@ class _CardBgScreenState extends State<CardBgScreen> {
   }
 
   Widget _buildShoppingDetails(int index) {
-    BagData bagData = bagDataList[index];
+    CartData bagData = cartDataList[index];
 
     return Row(
       children: [
@@ -146,7 +146,7 @@ class _CardBgScreenState extends State<CardBgScreen> {
   }
 
   Widget _buildOnShoppingCounter(int index) {
-    BagData bagData = bagDataList[index];
+    CartData cartData = cartDataList[index];
 
     return Row(
       children: [
@@ -172,7 +172,7 @@ class _CardBgScreenState extends State<CardBgScreen> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12.0),
           child: Text(
-            bagData.perCount.toString(),
+            '${cartData.perCount}',
             style: textStyle(color: Colors.black, size: 14, isBold: true),
           ),
         ),
