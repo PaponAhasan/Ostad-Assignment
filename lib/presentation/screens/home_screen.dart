@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
 
+import '../models/bag_data.dart';
 import '../utils/style.dart';
 import 'card_bg_screen.dart';
+import 'cart_price_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+
+  void onPriceChange() {
+    print("onPriceChange : ${bagDataList[0].perTotalPrice}");
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -12,24 +25,25 @@ class HomeScreen extends StatelessWidget {
       backgroundColor: Colors.blueGrey.shade50,
       appBar: AppBar(
         toolbarHeight: MediaQuery.of(context).size.height * 0.15,
+        backgroundColor: Colors.white,
         title: Padding(
           padding: const EdgeInsets.symmetric(
-            horizontal: 24.0,
+            horizontal: 30.0,
           ),
           child: Text(
-            'My Bag',
+            'Shopping Cart',
             style: textStyle(color: Colors.black, size: 30, isBold: true),
           ),
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(24.0),
+        padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 12.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const CardBgScreen(),
-            _buildOnPrice(),
+            CardBgScreen(onPriceChange : onPriceChange),
+            CartPriceScreen(),
             const SizedBox(
               height: 12,
             ),
@@ -56,23 +70,6 @@ class HomeScreen extends StatelessWidget {
         style: buttonStyle(),
         child: const Text('CHECK OUT'),
       ),
-    );
-  }
-
-  Widget _buildOnPrice() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          'Total amount:',
-          style:
-              textStyle(color: Colors.grey.shade500, size: 16, isBold: false),
-        ),
-        Text(
-          '124\$',
-          style: textStyle(color: Colors.black, size: 16, isBold: true),
-        ),
-      ],
     );
   }
 }
