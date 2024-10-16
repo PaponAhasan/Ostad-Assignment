@@ -25,6 +25,6 @@ class _CompletedTaskScreenState extends State<CompletedTaskScreen> {
           height: 8,
         );
       },
-    );;
+    );
   }
 }

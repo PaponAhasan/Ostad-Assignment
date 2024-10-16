@@ -1,10 +1,16 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:task_manager/data/models/network_response.dart';
 import 'package:task_manager/ui/screens/auth/sign_up_screen.dart';
 import 'package:task_manager/ui/screens/home/main_bottom_nav_bar_screen.dart';
 import 'package:task_manager/ui/utils/app_colors.dart';
 
+import '../../../data/services/network_caller.dart';
+import '../../../data/util/urls.dart';
+import '../../controllers/auth_controller.dart';
+import '../../widgets/center_circular_progress_indicator.dart';
 import '../../widgets/screen_backgroud.dart';
+import '../../widgets/snack_bar_message.dart';
 import 'forgot_password_email_screen.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -15,6 +21,11 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
+  final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  bool _inProcessing = false;
+
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
@@ -68,35 +79,100 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   Widget _buildSignInForm() {
-    return Column(
-      children: [
-        TextFormField(
-          keyboardType: TextInputType.emailAddress,
-          decoration: const InputDecoration(hintText: "Email"),
-        ),
-        const SizedBox(
-          height: 8,
-        ),
-        TextFormField(
-          obscureText: true,
-          decoration: const InputDecoration(hintText: "Password"),
-        ),
-        const SizedBox(
-          height: 24,
-        ),
-        ElevatedButton(
-          onPressed: _onTabNextButton,
-          child: const Icon(Icons.arrow_circle_right_outlined),
-        ),
-      ],
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: [
+          TextFormField(
+            controller: _emailController,
+            keyboardType: TextInputType.emailAddress,
+            decoration: const InputDecoration(hintText: "Email"),
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter your email';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          TextFormField(
+            controller: _passwordController,
+            obscureText: true,
+            decoration: const InputDecoration(hintText: "Password"),
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter your password';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(
+            height: 24,
+          ),
+          Visibility(
+            visible: !_inProcessing,
+            replacement: const CenterCircularProgressIndicator(),
+            child: ElevatedButton(
+              onPressed: _onTabNextButton,
+              child: const Icon(Icons.arrow_circle_right_outlined),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
   void _onTabNextButton() {
-    Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (context) => const MainBottomNavBarScreen()),
-        (route) => false);
+    if (_formKey.currentState!.validate()) {
+      _signIn();
+    }
+  }
+
+  void _signIn() async {
+    _inProcessing = true;
+    Map<String, dynamic> requestBody = {
+      "email": _emailController.text.trim(),
+      "password": _passwordController.text,
+    };
+    setState(() {});
+
+    final NetworkResponse response = await NetworkCaller.postRequest(
+      url: Urls.login,
+      body: requestBody,
+    );
+
+    _inProcessing = false;
+    setState(() {});
+
+    if (response.isSuccess) {
+      _clearTextFields();
+      _saveUserDetails(response);
+      showSnackBarMessage(context, "SignIn Successful");
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+              builder: (context) => const MainBottomNavBarScreen()),
+          (route) => false);
+    } else {
+      showSnackBarMessage(context, response.errorMessage, true);
+    }
+  }
+
+  void _saveUserDetails(NetworkResponse response) async {
+    await AuthController.saveAccessToken(response.responseData['token']);
+    await AuthController.saveUserEmail(response.responseData['data'][0]['email']);
+    await AuthController.saveUserFirstName(response.responseData['data'][0]['firstName']);
+    await AuthController.saveUserLastName(response.responseData['data'][0]['lastName']);
+    await AuthController.saveUserPhone(response.responseData['data'][0]['mobile']);
+  }
+
+  void _clearTextFields() {
+    _emailController.clear();
+    _passwordController.clear();
   }
 
   void _onTabForgotPassword() {
@@ -138,5 +214,12 @@ class _SignInScreenState extends State<SignInScreen> {
         builder: (context) => const SignUpScreen(),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
   }
 }

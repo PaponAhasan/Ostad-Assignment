@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:task_manager/ui/screens/home/cancelled_task_screen.dart';
 import 'package:task_manager/ui/screens/home/progress_task_screen.dart';
 
-import '../../utils/app_colors.dart';
 import '../../widgets/tm_app_bar.dart';
 import 'completed_task_screen.dart';
 import 'new_task_screen.dart';
