@@ -1,10 +1,15 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:task_manager/data/util/urls.dart';
 import 'package:task_manager/ui/screens/auth/forgot_password_otp_verify_screen.dart';
 import 'package:task_manager/ui/screens/auth/sign_in_screen.dart';
 import 'package:task_manager/ui/utils/app_colors.dart';
+import 'package:task_manager/ui/widgets/center_circular_progress_indicator.dart';
 
+import '../../../data/models/network_response.dart';
+import '../../../data/services/network_caller.dart';
 import '../../widgets/screen_backgroud.dart';
+import '../../widgets/snack_bar_message.dart';
 
 class ForgotPasswordEmailScreen extends StatefulWidget {
   const ForgotPasswordEmailScreen({super.key});
@@ -15,6 +20,10 @@ class ForgotPasswordEmailScreen extends StatefulWidget {
 }
 
 class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
+  final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  bool _inProcessing = false;
+
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
@@ -64,30 +73,74 @@ class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
   }
 
   Widget _buildForgotPasswordForm() {
-    return Column(
-      children: [
-        TextFormField(
-          keyboardType: TextInputType.emailAddress,
-          decoration: const InputDecoration(hintText: "Email"),
-        ),
-        const SizedBox(
-          height: 24,
-        ),
-        ElevatedButton(
-          onPressed: _onTabNextButton,
-          child: const Icon(Icons.arrow_circle_right_outlined),
-        ),
-      ],
+    return Form(
+      key: _formKey,
+      child: Column(
+        children: [
+          TextFormField(
+            controller: _emailController,
+            keyboardType: TextInputType.emailAddress,
+            decoration: const InputDecoration(hintText: "Email"),
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return "Please enter email";
+              } else if (!value.contains("@")) {
+                return "Please enter valid email";
+              } else {
+                return null;
+              }
+            },
+          ),
+          const SizedBox(
+            height: 24,
+          ),
+          Visibility(
+            visible: !_inProcessing,
+            replacement: const CenterCircularProgressIndicator(),
+            child: ElevatedButton(
+              onPressed: _onTabNextButton,
+              child: const Icon(Icons.arrow_circle_right_outlined),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
   void _onTabNextButton() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const ForgotPasswordOtpVerifyScreen(),
-      ),
+    if (_formKey.currentState!.validate()) {
+      _recoveryEmail();
+    }
+  }
+
+  void _recoveryEmail() async {
+    _inProcessing = true;
+    setState(() {});
+
+    final NetworkResponse response = await NetworkCaller.getRequest(
+      url: '${Urls.getEmailRecovery}/${_emailController.text.trim()}',
     );
+
+    _inProcessing = false;
+    setState(() {});
+
+    if (response.isSuccess) {
+      showSnackBarMessage(
+        context,
+        'A 6 digit verification pin will send to your email address',
+      );
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ForgotPasswordOtpVerifyScreen(
+            email: _emailController.text.trim(),
+          ),
+        ),
+      );
+    } else {
+      showSnackBarMessage(context, response.errorMessage, true);
+    }
   }
 
   Widget _buildSignInSection() {
@@ -120,5 +173,11 @@ class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
         builder: (context) => const SignInScreen(),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    super.dispose();
   }
 }

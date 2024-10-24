@@ -27,7 +27,7 @@ class NetworkCaller {
           return NetworkResponse(
             isSuccess: true,
             statusCode: response.statusCode,
-            responseData: decodedData['data'],
+            responseData: decodedData['data']
           );
         }
 
@@ -53,7 +53,7 @@ class NetworkCaller {
         return NetworkResponse(
           isSuccess: false,
           statusCode: response.statusCode,
-          errorMessage: decodedData['data'],
+          errorMessage: response.body,
         );
       }
     } catch (e) {
