@@ -134,7 +134,7 @@ class _SignInScreenState extends State<SignInScreen> {
     }
   }
 
-  void _signIn() async {
+  Future<void> _signIn() async {
     _inProcessing = true;
     Map<String, dynamic> requestBody = {
       "email": _emailController.text.trim(),
@@ -152,7 +152,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
     if (response.isSuccess) {
       _clearTextFields();
-      _saveUserDetails(response);
+      await _saveUserDetails(response);
       showSnackBarMessage(context, "SignIn Successful");
       Navigator.pushAndRemoveUntil(
           context,
@@ -164,7 +164,7 @@ class _SignInScreenState extends State<SignInScreen> {
     }
   }
 
-  void _saveUserDetails(NetworkResponse response) async{
+  Future<void> _saveUserDetails(NetworkResponse response) async{
     LoginModel loginModel = LoginModel.fromJson(response.responseData);
     UserModel userModel = loginModel.userData!;
     await AuthController.saveAccessToken(loginModel.token!);

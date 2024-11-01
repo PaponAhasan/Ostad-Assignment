@@ -168,10 +168,7 @@ class _SignInScreenState extends State<SignInScreen> {
     LoginModel loginModel = LoginModel.fromJson(response.responseData);
     UserModel userModel = loginModel.userData!;
     await AuthController.saveAccessToken(loginModel.token!);
-    await AuthController.saveUserEmail(userModel.email!);
-    await AuthController.saveUserFirstName(response.responseData['data']['firstName']);
-    await AuthController.saveUserLastName(response.responseData['data']['lastName']);
-    await AuthController.saveUserPhone(userModel.mobile!);
+    await AuthController.saveUserData(userModel);
   }
 
   void _clearTextFields() {

@@ -250,7 +250,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     setState(() {});
     if (response.isSuccess) {
       UserModel userModel = UserModel.fromJson(requestBody);
-      AuthController.saveUserData(userModel);
+      await AuthController.saveUserData(userModel);
       showSnackBarMessage(context, "Profile updated successfully");
     } else {
       showSnackBarMessage(context, response.errorMessage, true);

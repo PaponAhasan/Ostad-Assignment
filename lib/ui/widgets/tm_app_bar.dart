@@ -48,7 +48,7 @@ class _TMAppBarState extends State<TMAppBar> {
                     backgroundColor: Colors.white,
                     //backgroundImage: AssetImage('assets/images/user.jpg'),
                     backgroundImage: Image.memory(
-                            base64Decode(userData!.photo ?? ''),
+                            base64Decode(userData?.photo ?? ''),
                             fit: BoxFit.cover).image,
                   ),
                   const SizedBox(

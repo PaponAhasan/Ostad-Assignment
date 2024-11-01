@@ -16,6 +16,7 @@ class NetworkCaller {
       Uri uri = Uri.parse(url);
       debugPrint(uri.toString());
       String? token = AuthController.accessToken;
+      print("token: $token");
       final Response response = await get(
         uri,
         headers: {
@@ -81,6 +82,7 @@ class NetworkCaller {
       Uri uri = Uri.parse(url);
       debugPrint(uri.toString());
       String? token = AuthController.accessToken;
+      print("token: $token");
       final Response response = await post(
         uri,
         headers: {
