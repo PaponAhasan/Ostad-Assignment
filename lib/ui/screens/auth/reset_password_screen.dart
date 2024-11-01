@@ -7,7 +7,7 @@ import '../../../data/models/network_response.dart';
 import '../../../data/services/network_caller.dart';
 import '../../../data/util/urls.dart';
 import '../../widgets/center_circular_progress_indicator.dart';
-import '../../widgets/screen_backgroud.dart';
+import '../../widgets/screen_background.dart';
 import '../../widgets/snack_bar_message.dart';
 
 class ResetPasswordScreen extends StatefulWidget {

@@ -8,7 +8,7 @@ import 'package:task_manager/ui/widgets/center_circular_progress_indicator.dart'
 
 import '../../../data/models/network_response.dart';
 import '../../../data/services/network_caller.dart';
-import '../../widgets/screen_backgroud.dart';
+import '../../widgets/screen_background.dart';
 import '../../widgets/snack_bar_message.dart';
 
 class ForgotPasswordEmailScreen extends StatefulWidget {

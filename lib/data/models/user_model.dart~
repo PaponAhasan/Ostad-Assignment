@@ -1,0 +1,81 @@
+class UserModel {
+  UserModel({
+      this.status, 
+      this.data, 
+      this.token,});
+
+  UserModel.fromJson(dynamic json) {
+    status = json['status'];
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
+    token = json['token'];
+  }
+  String? status;
+  Data? data;
+  String? token;
+UserModel copyWith({  String? status,
+  Data? data,
+  String? token,
+}) => UserModel(  status: status ?? this.status,
+  data: data ?? this.data,
+  token: token ?? this.token,
+);
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['status'] = status;
+    if (data != null) {
+      map['data'] = data?.toJson();
+    }
+    map['token'] = token;
+    return map;
+  }
+
+}
+
+class Data {
+  Data({
+      this.id, 
+      this.email, 
+      this.firstName, 
+      this.lastName, 
+      this.mobile, 
+      this.createdDate,});
+
+  Data.fromJson(dynamic json) {
+    id = json['_id'];
+    email = json['email'];
+    firstName = json['firstName'];
+    lastName = json['lastName'];
+    mobile = json['mobile'];
+    createdDate = json['createdDate'];
+  }
+  String? id;
+  String? email;
+  String? firstName;
+  String? lastName;
+  String? mobile;
+  String? createdDate;
+Data copyWith({  String? id,
+  String? email,
+  String? firstName,
+  String? lastName,
+  String? mobile,
+  String? createdDate,
+}) => Data(  id: id ?? this.id,
+  email: email ?? this.email,
+  firstName: firstName ?? this.firstName,
+  lastName: lastName ?? this.lastName,
+  mobile: mobile ?? this.mobile,
+  createdDate: createdDate ?? this.createdDate,
+);
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['_id'] = id;
+    map['email'] = email;
+    map['firstName'] = firstName;
+    map['lastName'] = lastName;
+    map['mobile'] = mobile;
+    map['createdDate'] = createdDate;
+    return map;
+  }
+
+}

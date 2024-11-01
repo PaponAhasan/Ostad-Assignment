@@ -25,7 +25,6 @@ class TMAppBar extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _TMAppBarState extends State<TMAppBar> {
-
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(

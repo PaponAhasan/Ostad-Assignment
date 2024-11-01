@@ -49,7 +49,6 @@ class AuthController {
       return null;
     }
     userData = UserModel.fromJson(jsonDecode(userEncodedData));
-    userNotifier.value = userData;
     return userData;
   }
 

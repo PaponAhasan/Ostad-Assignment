@@ -4,7 +4,7 @@ import 'package:task_manager/ui/controllers/auth_controller.dart';
 import 'package:task_manager/ui/screens/auth/sign_in_screen.dart';
 import 'package:task_manager/ui/utils/assets_path.dart';
 
-import '../widgets/screen_backgroud.dart';
+import '../widgets/screen_background.dart';
 import 'home/main_bottom_nav_bar_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -24,6 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> _moveToNextScreen() async {
     await Future.delayed(const Duration(seconds: 3));
     await AuthController.getAccessToken();
+    await AuthController.getUserData();
     if (AuthController.hasAccessToken()) {
       Navigator.pushAndRemoveUntil(
         context,

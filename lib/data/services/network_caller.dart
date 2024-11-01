@@ -15,8 +15,16 @@ class NetworkCaller {
     try {
       Uri uri = Uri.parse(url);
       debugPrint(uri.toString());
-      final Response response = await get(uri);
+      String? token = AuthController.accessToken;
+      final Response response = await get(
+        uri,
+        headers: {
+          'Content-Type': 'application/json',
+          'token': token.toString(),
+        },
+      );
       printResponse(url, response);
+      printRequest(url: url, headers: response.request!.headers, body: null);
 
       final decodedData = jsonDecode(
         response.body,
@@ -72,7 +80,7 @@ class NetworkCaller {
     try {
       Uri uri = Uri.parse(url);
       debugPrint(uri.toString());
-      String? token = await AuthController.getAccessToken();
+      String? token = AuthController.accessToken;
       final Response response = await post(
         uri,
         headers: {
@@ -81,7 +89,7 @@ class NetworkCaller {
         },
         body: jsonEncode(body),
       );
-      printRequest(url, response.request!.headers, body!);
+      printRequest(url: url, headers:  response.request!.headers, body :body!);
       printResponse(url, response);
 
       final decodedData = jsonDecode(response.body);
@@ -134,14 +142,14 @@ class NetworkCaller {
   }
 
   static void printRequest(
-      String url, Map<String, dynamic> headers, Map<String, dynamic> body) {
+      {required String url, required Map<String, dynamic> headers, required Map<String, dynamic>? body}) {
     debugPrint(
       'URL: $url\n HEADERS: $headers\n BODY: $body',
     );
   }
 
   static void _moveToLoginScreen() async {
-    await AuthController.clearUserDetails();
+    await AuthController.clearAuthDetails();
     Navigator.pushAndRemoveUntil(
       TaskManagerApp.navigatorKey.currentContext!,
       MaterialPageRoute(
